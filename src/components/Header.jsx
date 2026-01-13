@@ -87,7 +87,64 @@ const Header = () => {
                                 </div>
 
 
-                               
+                                {/**login and my cart */}
+                                <div className=''>
+                                    {/**user icons display in only mobile version**/}
+                                    <button className='text-neutral-600 lg:hidden' onClick={handleMobileUser}>
+                                        <FaRegCircleUser size={26}/>
+                                    </button>
+
+                                      {/**Desktop**/}
+                                    <div className='hidden lg:flex  items-center gap-10'>
+                                        {
+                                            user?._id ? (
+                                                <div className='relative'>
+                                                    <div onClick={()=>setOpenUserMenu(preve => !preve)} className='flex select-none items-center gap-1 cursor-pointer'>
+                                                        <p>Account</p>
+                                                        {
+                                                            openUserMenu ? (
+                                                                  <GoTriangleUp size={25}/> 
+                                                            ) : (
+                                                                <GoTriangleDown size={25}/>
+                                                            )
+                                                        }
+                                                       
+                                                    </div>
+                                                    {
+                                                        openUserMenu && (
+                                                            <div className='absolute right-0 top-12'>
+                                                                <div className='bg-white rounded p-4 min-w-52 lg:shadow-lg'>
+                                                                    <UserMenu close={handleCloseUserMenu}/>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    
+                                                </div>
+                                            ) : (
+                                                <button onClick={redirectToLoginPage} className='text-lg px-2'>Login</button>
+                                            )
+                                        }
+                                        <button onClick={()=>setOpenCartSection(true)} className='flex items-center gap-2 bg-green-800 hover:bg-green-700 px-3 py-2 rounded text-white'>
+                                            {/**add to card icons */}
+                                            <div className='animate-bounce'>
+                                                <BsCart4 size={26}/>
+                                            </div>
+                                            <div className='font-semibold text-sm'>
+                                                {
+                                                    cartItem[0] ? (
+                                                        <div>
+                                                            <p>{totalQty} Items</p>
+                                                            <p>{DisplayPriceInRupees(totalPrice)}</p>
+                                                        </div>
+                                                    ) : (
+                                                        <p>My Cart</p>
+                                                    )
+                                                }
+                                            </div>    
+                                        </button>
+                                    </div>
+                                </div>
                 </div>
             )
         }
